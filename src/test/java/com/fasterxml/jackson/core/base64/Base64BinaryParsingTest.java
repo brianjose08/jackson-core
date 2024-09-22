@@ -105,7 +105,7 @@ class Base64BinaryParsingTest
             }
             p.close();
 
-            // second: invalid space within
+            // second: invalid space withinn
             p = createParser(JSON_F, mode, q("ab de"));
             assertToken(JsonToken.VALUE_STRING, p.nextToken());
             try {
