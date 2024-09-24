@@ -488,4 +488,42 @@ class DelegatesTest extends com.fasterxml.jackson.core.JUnit5TestBase
         assertSame(tree, codec.treeWritten);
         assertSame(pojo, codec.pojoWritten);
     }
+
+    /**
+     * Ce test vérifie que la méthode enable permet d'activer une fonctionnalité spécifique du JsonParser.
+     * Dans notre cas, la fonctionnalité testée est ALLOW_COMMENTS, qui permet d'autoriser les commentaires dans le JSON.
+     */
+    @Test
+    void testEnableFeature() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonParser parser = jsonFactory.createParser("{\"champ\": \"valeur\"}");
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+
+        // Act
+        delegate.enable(JsonParser.Feature.ALLOW_COMMENTS);
+
+        // Assert
+        assertTrue(delegate.isEnabled(JsonParser.Feature.ALLOW_COMMENTS));
+    }
+
+    /**
+     * Ce test vérifie que la méthode disable permet de désactiver une fonctionnalité spécifique du JsonParser.
+     * Dans notre cas, la fonctionnalité testée est ALLOW_COMMENTS encore une fois.
+     */
+    @Test
+    void testDisableFeature() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonParser parser = jsonFactory.createParser("{\"champ\": \"valeur\"}");
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+        
+        // Act
+        delegate.disable(JsonParser.Feature.ALLOW_COMMENTS);
+
+        // Assert
+        assertFalse(delegate.isEnabled(JsonParser.Feature.ALLOW_COMMENTS));
+    }
 }
