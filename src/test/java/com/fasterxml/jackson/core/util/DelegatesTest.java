@@ -488,4 +488,132 @@ class DelegatesTest extends com.fasterxml.jackson.core.JUnit5TestBase
         assertSame(tree, codec.treeWritten);
         assertSame(pojo, codec.pojoWritten);
     }
+
+
+    /**
+     * Ce test vérifie que la méthode overrideFormatFeatures remplace correctement les fonctionnalités du format
+     * du parser sans changer l'instance du délégué. On initialise un parser et un JsonParserDelegate, puis on appelle
+     * la méthode overrideFormatFeatures et vérifie que l'instance reste la même.
+     */
+    @Test
+    void testOverrideFormatFeatures() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonParser parser = jsonFactory.createParser("{\"field\": \"value\"}");
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+    
+        // Act
+        JsonParser result = delegate.overrideFormatFeatures(1, 2);
+    
+        // Assert
+        assertSame(delegate, result);
+    }
+
+    /**
+     * Ce test vérifie que la méthode enable permet d'activer une fonctionnalité spécifique du JsonParser.
+     * Dans notre cas, la fonctionnalité testée est ALLOW_COMMENTS, qui permet d'autoriser les commentaires dans le JSON.
+     */
+    @Test
+    void testEnableFeature() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonParser parser = jsonFactory.createParser("{\"field\": \"value\"}");
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+
+        // Act
+        delegate.enable(JsonParser.Feature.ALLOW_COMMENTS);
+
+        // Assert
+        assertTrue(delegate.isEnabled(JsonParser.Feature.ALLOW_COMMENTS));
+    }
+
+    /**
+     * Ce test vérifie que la méthode disable permet de désactiver une fonctionnalité spécifique du JsonParser.
+     * Dans notre cas, la fonctionnalité testée est ALLOW_COMMENTS encore une fois.
+     */
+    @Test
+    void testDisableFeature() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonParser parser = jsonFactory.createParser("{\"field\": \"value\"}");
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+        
+        // Act
+        delegate.disable(JsonParser.Feature.ALLOW_COMMENTS);
+
+        // Assert
+        assertFalse(delegate.isEnabled(JsonParser.Feature.ALLOW_COMMENTS));
+    }
+
+    /**
+     * Ce test vérifie la méthode readBinaryValue qui lit une valeur binaire encodée en Base64 dans le JSON
+     * et le écrit dans un OutputStream. Cela permet de s'assurer que la méthode décode bien les données en Base64.
+     */
+    @Test
+    void testReadBinaryValue() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        String base64String = "\"QUJDRA==\""; // "ABCD" en base64
+        JsonParser parser = jsonFactory.createParser(base64String);
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        Base64Variant base64Variant = Base64Variants.MIME_NO_LINEFEEDS;
+    
+        // Act
+        parser.nextToken();
+        delegate.readBinaryValue(base64Variant, outputStream);
+    
+        // Assert
+        assertArrayEquals("ABCD".getBytes(), outputStream.toByteArray());
+    }
+
+    /**
+     * Ce test vérifie que la méthode skipChildren permet de sauter correctement les enfants d'un noeud JSON.
+     * Cela est utile pour les parseurs qui veuelent ignorer des sections du document JSON.
+     */
+    @Test
+    void testSkipChildren() throws IOException {
+        
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        String json = "{\"parent\": {\"child\": 1}}";
+        JsonParser parser = jsonFactory.createParser(json);
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+
+        // Act
+        parser.nextToken();
+        parser.nextToken();
+        parser.nextToken();
+        delegate.skipChildren();
+
+        // Assert
+        assertEquals(JsonToken.END_OBJECT, delegate.currentToken());
+    }
+
+    /*
+     * Ce test vérifie que la méthode overrideCurrentName permet de remplacer le nom du champ courant 
+     * dans le contexte du parser JSON.
+     */
+    @Test
+    void testOverrideCurrentName() throws IOException {
+
+        // Arrange
+        JsonFactory jsonFactory = new JsonFactory();
+        String json = "{\"field\": \"value\"}";
+        JsonParser parser = jsonFactory.createParser(json);
+        JsonParserDelegate delegate = new JsonParserDelegate(parser);
+
+        // Act
+        parser.nextToken();
+        parser.nextToken();
+        delegate.overrideCurrentName("quelquechose");
+
+        // Assert
+        assertEquals("quelquechose", delegate.currentName());
+    }
+
 }

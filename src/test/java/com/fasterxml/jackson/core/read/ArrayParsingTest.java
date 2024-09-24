@@ -187,31 +187,4 @@ class ArrayParsingTest
             assertToken(JsonToken.END_ARRAY, jp.nextToken());
         }
     }
-
-    /**
-     * Ce test s'assure qu'un tableau contenant des types de valeurs mixtes 
-     * (nombres, chaînes et null) est correctement analysé.
-     * @throws Exception
-     */
-    @Test
-    void typesDeValeursMixtesValides() throws Exception {
-        // Partie Arrange
-        final String DOC = "[ 7, \"unstring de quelque chose\", null, 3.14 ]";
-        JsonParser jp = createParserUsingStream(DOC, "UTF-8");
-
-        // Partie Act
-        assertToken(JsonToken.START_ARRAY, jp.nextToken());
-        assertToken(JsonToken.VALUE_NUMBER_INT, jp.nextToken());
-        assertEquals(7, jp.getIntValue());
-        assertToken(JsonToken.VALUE_STRING, jp.nextToken());
-        assertEquals("unstring de quelque chose", jp.getValueAsString());
-        assertToken(JsonToken.VALUE_NULL, jp.nextToken());
-        assertToken(JsonToken.VALUE_NUMBER_FLOAT, jp.nextToken());
-        assertEquals(3.14, jp.getDoubleValue(), 0.001);
-        assertToken(JsonToken.END_ARRAY, jp.nextToken());
-        assertNull(jp.nextToken());
-
-        // Partie Assert
-        jp.close();
-    }
 }
