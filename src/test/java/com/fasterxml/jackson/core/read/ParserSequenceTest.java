@@ -125,4 +125,47 @@ class ParserSequenceTest
         assertNull(seq.nextToken());
         seq.close();
     }
+
+    /**
+     * L'utilité de cette méthode réside dans sa capacité à bien ignorer des structures imbriquées
+     * comme des tableaux ou des objets JSON, et à passer directement au prochain élément de la séquence JSON
+     * qui n'est pas un enfant de ces structures.
+    */
+    @Test
+    void testSkipChildren() throws Exception
+    {
+        // Arrange
+        JsonParser p1 = JSON_FACTORY.createParser("{ \"cle1\": [1, 2, 3], \"cle2\": true }");
+        JsonParser p2 = JSON_FACTORY.createParser("{ \"cle3\": { \"cleImbriquee\": \"valeur\" }, \"cle4\": false }");
+        JsonParserSequence seq = JsonParserSequence.createFlattened(false, p1, p2);
+
+        // Act
+        JsonToken token1 = seq.nextToken(); // debut objet 1
+        JsonToken token2 = seq.nextToken(); // "cle1"
+        JsonToken token3 = seq.nextToken(); // debut liste
+        seq.skipChildren();                 
+        JsonToken token4 = seq.nextToken(); // "cle2"
+        JsonToken token5 = seq.nextToken(); // true
+        JsonToken token6 = seq.nextToken(); // fin objet 1
+        JsonToken token7 = seq.nextToken(); // debut objet 2
+        JsonToken token8 = seq.nextToken(); // "cle3"
+        JsonToken token9 = seq.nextToken(); // debut objet imbriquée 
+        seq.skipChildren();    
+        JsonToken token10 = seq.nextToken(); 
+
+        // Assert
+        assertEquals(JsonToken.START_OBJECT, token1); // {
+        assertEquals(JsonToken.FIELD_NAME, token2); // "cle1"
+        assertEquals(JsonToken.START_ARRAY, token3); // [
+        assertToken(JsonToken.FIELD_NAME, token4); // "cle2"
+        assertToken(JsonToken.VALUE_TRUE, token5); // true
+        assertToken(JsonToken.END_OBJECT, token6); // }
+        assertEquals(JsonToken.START_OBJECT, token7); // {
+        assertEquals(JsonToken.FIELD_NAME, token8); // "cle3"
+        assertEquals(JsonToken.START_OBJECT, token9); // {
+        assertToken(JsonToken.FIELD_NAME, token10); // "cle4"
+        assertToken(JsonToken.VALUE_FALSE, seq.nextToken()); // false
+        assertToken(JsonToken.END_OBJECT, seq.nextToken()); // }
+        assertNull(seq.nextToken());  // fin
+    }
 }
