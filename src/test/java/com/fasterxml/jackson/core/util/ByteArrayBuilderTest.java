@@ -72,4 +72,24 @@ class ByteArrayBuilderTest extends com.fasterxml.jackson.core.JUnit5TestBase
         br.releaseToPool();
         assertFalse(br.isLinkedWithPool());
     }
+
+    @Test
+    void testAjouterQuatreOctets() throws Exception
+    {
+        // Arrange
+        ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
+        
+        // Act
+        int fourByteValue = 0x01020304; // Exemple de valeur à ajouter, devrait donner un tableau d'octets [1, 2, 3, 4]
+        b.appendFourBytes(fourByteValue);
+
+        byte[] result = b.toByteArray();
+        
+        // Assert
+        byte[] expected = {1, 2, 3, 4};
+        assertArrayEquals(expected, result);
+
+        b.release();
+        b.close();
+}
 }
