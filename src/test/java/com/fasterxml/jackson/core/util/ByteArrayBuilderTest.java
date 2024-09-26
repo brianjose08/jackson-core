@@ -72,4 +72,53 @@ class ByteArrayBuilderTest extends com.fasterxml.jackson.core.JUnit5TestBase
         br.releaseToPool();
         assertFalse(br.isLinkedWithPool());
     }
+
+    /*
+    ce test vérifie que la méthode size() de la classe ByteArrayBuilder renvoie correctement 
+    le nombre total d'octets actuellement présents dans le buffer après plusieurs opérations d'écriture.
+    */ 
+    @Test
+    void testSize() throws Exception
+    {
+        // Arrange: Initialisation de ByteArrayBuilder avec une capacité initiale
+        ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
+    
+        // Act: Écriture de quelques octets dans le buffer
+        b.write((byte) 1);
+        b.write((byte) 2);
+        b.appendFourBytes(0x03040506); // Cela ajoute 4 octets
+     
+        // Assert: Vérifie que la taille totale du buffer est bien 6
+        assertEquals(6, b.size());
+    
+        b.release();
+        b.close();
+    }
+
+    /*
+    Ce test vérifie que la méthode flush() de la classe ByteArrayBuilder fonctionne
+    correctement et qu'elle ne modifie pas le contenu du buffer.
+    */ 
+    @Test
+    void testFlush() throws Exception {
+        // Arrange
+        ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
+        b.write((byte) 1);
+        b.appendFourBytes(0x02030405); // Ajoute les octets [2, 3, 4, 5]
+    
+        // Act
+        b.flush(); // Appelle la méthode flush pour s'assurer qu'elle fonctionne sans erreur
+    
+        // Assert
+        // Vérifie que le buffer est toujours accessible et la taille est correcte
+        assertEquals(5, b.size());
+        
+        // Vérifie que les données ajoutées sont toujours présentes
+        byte[] expected = {1, 2, 3, 4, 5};
+        assertArrayEquals(expected, b.toByteArray());
+    
+        b.release();
+        b.close();
+    }
+    
 }
