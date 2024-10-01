@@ -73,47 +73,47 @@ class ByteArrayBuilderTest extends com.fasterxml.jackson.core.JUnit5TestBase
         assertFalse(br.isLinkedWithPool());
     }
 
-    /*
-    ce test vérifie que la méthode size() de la classe ByteArrayBuilder renvoie correctement 
-    le nombre total d'octets actuellement présents dans le buffer après plusieurs opérations d'écriture.
-    */ 
+    /**
+     * Ce test vérifie que la méthode size permet de renvoyer correctement 
+     * le nombre total d'octets présents dans le buffer après 
+     * plusieurs opérations d'écriture.
+     */ 
     @Test
-    void testSize() throws Exception
-    {
-        // Arrange: Initialisation de ByteArrayBuilder avec une capacité initiale
+    void testSize() throws Exception{
+
+        // Arrange
         ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
     
-        // Act: Écriture de quelques octets dans le buffer
+        // Act
         b.write((byte) 1);
         b.write((byte) 2);
-        b.appendFourBytes(0x03040506); // Cela ajoute 4 octets
+        b.appendFourBytes(0x03040506); 
      
-        // Assert: Vérifie que la taille totale du buffer est bien 6
+        // Assert
         assertEquals(6, b.size());
     
         b.release();
         b.close();
     }
 
-    /*
-    Ce test vérifie que la méthode flush() de la classe ByteArrayBuilder fonctionne
-    correctement et qu'elle ne modifie pas le contenu du buffer.
-    */ 
+    /**
+     * Ce test vérifie que la méthode flush permet de fonctionner
+     * correctement et qu'elle ne modifie pas le contenu du buffer.
+     */ 
     @Test
     void testFlush() throws Exception {
+
         // Arrange
         ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
         b.write((byte) 1);
-        b.appendFourBytes(0x02030405); // Ajoute les octets [2, 3, 4, 5]
+        b.appendFourBytes(0x02030405); 
     
         // Act
-        b.flush(); // Appelle la méthode flush pour s'assurer qu'elle fonctionne sans erreur
+        b.flush(); 
     
         // Assert
-        // Vérifie que le buffer est toujours accessible et la taille est correcte
         assertEquals(5, b.size());
         
-        // Vérifie que les données ajoutées sont toujours présentes
         byte[] expected = {1, 2, 3, 4, 5};
         assertArrayEquals(expected, b.toByteArray());
     

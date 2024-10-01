@@ -489,10 +489,10 @@ class DelegatesTest extends com.fasterxml.jackson.core.JUnit5TestBase
         assertSame(pojo, codec.pojoWritten);
     }
 
-    /*
-    Ce test vérifie que la méthode overrideCurrentName permet de remplacer le nom du champ courant 
-    dans le contexte du parser JSON.
-    */
+    /**
+     * Ce test vérifie que la méthode overrideCurrentName permet de remplacer le nom du champ courant 
+     * dans le contexte du parser JSON.
+     */
     @Test
     void testOverrideCurrentName() throws IOException {
 
