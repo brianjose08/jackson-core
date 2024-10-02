@@ -91,5 +91,54 @@ class ByteArrayBuilderTest extends com.fasterxml.jackson.core.JUnit5TestBase
 
         b.release();
         b.close();
-}
+    }
+
+        /**
+     * Ce test vérifie que la méthode size permet de renvoyer correctement 
+     * le nombre total d'octets présents dans le buffer après 
+     * plusieurs opérations d'écriture.
+     */ 
+    @Test
+    void testSize() throws Exception{
+
+        // Arrange
+        ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
+    
+        // Act
+        b.write((byte) 1);
+        b.write((byte) 2);
+        b.appendFourBytes(0x03040506); 
+     
+        // Assert
+        assertEquals(6, b.size());
+    
+        b.release();
+        b.close();
+    }
+
+    /**
+     * Ce test vérifie que la méthode flush permet de fonctionner
+     * correctement et qu'elle ne modifie pas le contenu du buffer.
+     */ 
+    @Test
+    void testFlush() throws Exception {
+
+        // Arrange
+        ByteArrayBuilder b = new ByteArrayBuilder(null, 10);
+        b.write((byte) 1);
+        b.appendFourBytes(0x02030405); 
+    
+        // Act
+        b.flush(); 
+    
+        // Assert
+        assertEquals(5, b.size());
+        
+        byte[] expected = {1, 2, 3, 4, 5};
+        assertArrayEquals(expected, b.toByteArray());
+    
+        b.release();
+        b.close();
+    }
+
 }
