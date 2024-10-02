@@ -10,7 +10,7 @@ public class NameNTest {
      * Ce test est crucial pour garantir que la méthode equals fonctionne comme prévu pour différents scénarios de comparaison de tableaux.
      */
     @Test
-    public void testEqualsWithQuads() {
+    public void testEquals() {
 
         // Arrange
         int[] quads = {1, 2, 3, 4, 5, 6, 7, 8};
