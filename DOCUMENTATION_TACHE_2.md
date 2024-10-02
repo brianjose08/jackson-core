@@ -11,7 +11,7 @@ Ce test vérifie que appendFourBytes fonctionne correctement en ajoutant une val
 ### Avant 
 <img src="images_documentation\test1avant.png" width="700" />
 
-### Apres
+### Après
 <img src="images_documentation\test1apres.png" width="700" />
 
 # Test 2:
@@ -25,7 +25,7 @@ Ce test vérifie que la méthode equals compare correctement les tableaux de qua
 ### Avant 
 <img src="images_documentation\test2avant.png" width="700" />
 
-### Apres
+### Après
 <img src="images_documentation\test2apres.png" width="700" />
 
 # Test 3:
@@ -39,17 +39,50 @@ Ce test vérifie que la méthode skipChildren de la class JsonParserSequence fai
 ### Avant 
 <img src="images_documentation\test3avant.png" width="700" />
 
-### Apres
+### Après
 <img src="images_documentation\test3apres.png" width="700" />
 
 # Test 4:
 ## appendDesc(StringBuilder)
 
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/filter/TokenFilterContext.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/filter/TokenFilterContextTest.java) (ligne 13)
+
+Ce test vérifie que la méthode appendDesc génère correctement la représentation du chemin JSON en fonction de l'état actuel du contexte. C'est important car ce test garantit que cette méthode fournit une description exact du chemin, qui pourrait éviter des problèmes dans les tâches come le filtrage.
+
+### Avant 
+<img src="images_documentation\test4avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test4apres.png" width="700" />
+
 # Test 5:
 ## enable(JsonParserFeature)
 
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/JsonParserDelegate.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/DelegatesTest.java) (ligne 497)
+
+Ce test vérifie que la méthode enable permet d'activer une fonctionnalité spécifique du JsonParser. Dans notre cas, la fonctionnalité testée est ALLOW_COMMENTS, qui permet d'autoriser les commentaires dans le JSON. Ce test garantit alors l'activation des options spécifiques pour personnaliser le comportement du parsing JSON sans problèmes.
+
+### Avant 
+<img src="images_documentation\test5-6avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test5-6apres.png" width="700" />
+
 # Test 6:
-## enable(JsonParserFeature)
+## disable(JsonParserFeature)
+
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/JsonParserDelegate.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/DelegatesTest.java) (ligne 516)
+
+Ce test vérifie que la méthode enable permet de désactivé une fonctionnalité spécifique du JsonParser. Encore une fois, la fonctionnalité testée est ALLOW_COMMENTS, qui permet d'autoriser les commentaires dans le JSON. Ce test garantit alors la désactivation des options spécifiques sans problèmes.
+
+### Avant 
+<img src="images_documentation\test5-6avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test5-6apres.png" width="700" />
 
 # Test 7:
 ## size()
@@ -57,4 +90,6 @@ Ce test vérifie que la méthode skipChildren de la class JsonParserSequence fai
 # Test 8:
 ## flush()
 
+# Test 9:
+## overrideCurrentName()
 
