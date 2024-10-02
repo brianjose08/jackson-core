@@ -236,4 +236,26 @@ class TextBufferTest
         textBuffer.resetWithString("1.234567890123456789");
         assertEquals(1.234567890123456789d,  textBuffer.contentsAsDouble(true));
     }
+
+    /* 
+    * Dans ce test on vérifie si la méthode expandCurrentSegment() agrandi bien le tampon interne 
+    * lorsque la taille actuelle n'est plus assez grande pour contenir de nouvelles données.
+    */
+    @Test
+    void testExpandCurrentSegment() throws Exception {
+        
+        // Arrange
+        TextBuffer textBuffer = new TextBuffer(new BufferRecycler());
+        char[] segmentInitiale = textBuffer.emptyAndGetCurrentSegment();
+        
+        // Act
+        for (int i = 0; i < segmentInitiale.length; i++) {
+            textBuffer.append('x');
+        }
+        char[] segmentEtendue = textBuffer.expandCurrentSegment();
+
+        // Assert
+        assertNotNull(segmentEtendue);
+        assertTrue(segmentEtendue.length > segmentInitiale.length);
+    }
 }
