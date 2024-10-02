@@ -73,6 +73,11 @@ class ByteArrayBuilderTest extends com.fasterxml.jackson.core.JUnit5TestBase
         assertFalse(br.isLinkedWithPool());
     }
 
+
+    /**
+     * Vérifie que la méthode appendFourbytes ajoute correctement quatre octets à partir
+     * d'une valeur entière dans le buffer.
+     */
     @Test
     void testAjouterQuatreOctets() throws Exception
     {
