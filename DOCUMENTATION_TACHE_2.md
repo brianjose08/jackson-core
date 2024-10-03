@@ -87,9 +87,42 @@ Ce test vérifie que la méthode enable permet de désactivé une fonctionnalit�
 # Test 7:
 ## size()
 
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/ByteArrayBuilder.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/ByteArrayBuilderTest.java) (ligne 107)
+
+Ce test vérifie que la méthode size renvoie correctement le nombre total d'octets actuellement présents dans le buffer après plusieurs opérations d'écriture. Cela permet de s'assurer que la taille du buffer est mise à jour correctement.
+
+### Avant 
+<img src="images_documentation\test7avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test7apres.png" width="700" />
+
 # Test 8:
 ## flush()
 
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/ByteArrayBuilder.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/ByteArrayBuilderTest.java) (ligne 129)
+
+Ce test vérifie que la méthode flush ne modifie pas le contenu du buffer. Cela garantit que le buffer reste intact après l'opération de flush, ce qui est crucial pour le traitement des données dans des environnements où l'intégrité des données est essentielle.
+
+### Avant 
+<img src="images_documentation\test8avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test8apres.png" width="700" />
+
 # Test 9:
 ## overrideCurrentName()
+
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/JsonParserDelegate.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/DelegatesTest.java) (ligne 535)
+
+Ce test vérifie que la méthode release libère correctement les ressources allouées au buffer. Cela permet de s'assurer qu'il n'y a pas de fuites de mémoire et que les ressources sont gérées de manière efficace.
+
+### Avant 
+<img src="images_documentation\test9avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test9apres.png" width="700" />
 
