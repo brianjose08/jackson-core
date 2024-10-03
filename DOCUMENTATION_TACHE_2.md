@@ -120,3 +120,9 @@ Ce test vérifie que la méthode flush ne modifie pas le contenu du buffer. Cela
 
 Ce test vérifie que la méthode release libère correctement les ressources allouées au buffer. Cela permet de s'assurer qu'il n'y a pas de fuites de mémoire et que les ressources sont gérées de manière efficace.
 
+### Avant 
+<img src="images_documentation\test9avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test9apres.png" width="700" />
+
