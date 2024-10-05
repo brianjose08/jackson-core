@@ -238,8 +238,8 @@ class TextBufferTest
     }
 
     /* 
-    * Dans ce test on vérifie si la méthode expandCurrentSegment() agrandi bien le tampon interne 
-    * lorsque la taille actuelle n'est plus assez grande pour contenir de nouvelles données.
+    * Dans ce test on vérifie si la méthode expandCurrentSegment(int) agrandi bien le tampon interne 
+    * en fonction de la taille minimale qui est spécifiée dans le paramètre de la fonction.
     */
     @Test
     void testExpandCurrentSegment() throws Exception {
@@ -247,15 +247,13 @@ class TextBufferTest
         // Arrange
         TextBuffer textBuffer = new TextBuffer(new BufferRecycler());
         char[] segmentInitiale = textBuffer.emptyAndGetCurrentSegment();
+        int minSize = segmentInitiale.length * 2;
         
         // Act
-        for (int i = 0; i < segmentInitiale.length; i++) {
-            textBuffer.append('x');
-        }
-        char[] segmentEtendue = textBuffer.expandCurrentSegment();
+        char[] segmentEtendue = textBuffer.expandCurrentSegment(minSize);
 
         // Assert
         assertNotNull(segmentEtendue);
-        assertTrue(segmentEtendue.length > segmentInitiale.length);
+        assertTrue(segmentEtendue.length >= minSize);
     }
 }
