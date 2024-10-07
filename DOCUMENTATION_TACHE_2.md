@@ -126,3 +126,17 @@ Ce test vérifie que la méthode release libère correctement les ressources all
 ### Après
 <img src="images_documentation\test9apres.png" width="700" />
 
+# Test 10:
+## expandCurrentSegment(int)
+
+[Fichier Main](src/main/java/com/fasterxml/jackson/core/util/TextBuffer.java) <br>
+[Fichier Test](src/test/java/com/fasterxml/jackson/core/util/TextBufferTest.java) (ligne 241)
+
+Ce test on vérifie si la méthode expandCurrentSegment(int) agrandi bien le tampon interne en fonction de la taille minimale qui est spécifiée dans le paramètre de la fonction. Faire le test de cette méthode est important puisque on s'assure que le tampon interne peut avoir de nouvelles données sans avoir des erreurs liées à une taille insuffissante de segment.
+
+### Avant 
+<img src="images_documentation\test10avant.png" width="700" />
+
+### Après
+<img src="images_documentation\test10apres.png" width="700" />
+
