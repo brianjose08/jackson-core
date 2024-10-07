@@ -1,5 +1,9 @@
 Brian-José Mejia-Rivera 20210144 et Raymond Cung 20232716
 
+# Taux de couverture final: 82 % <br>
+
+<img src="images_documentation\coverage.png" width="700" />
+
 # Test 1:
 ## appendFourbytes(int)
 
