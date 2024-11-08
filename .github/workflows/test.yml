@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run Maven tests with -XX:+UseG1GC
+      - name: Maven tests avec -XX:+UseG1GC
         env:
           MAVEN_OPTS: "-XX:+UseG1GC"
         run: mvn verify
