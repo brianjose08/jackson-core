@@ -16,9 +16,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Set JVM Flags
-        run: echo "MAVEN_OPTS=-XX:+UseG1GC" >> $GITHUB_ENV
-
       - name: Run Maven tests
         run: mvn verify
 
