@@ -19,7 +19,7 @@ jobs:
       - name: Maven tests avec -XX:+UseG1GC
         env:
           MAVEN_OPTS: "-XX:+UseG1GC"
-        run: mvn verify
+        run: mvn verify -XX:+UseG1GC
 
 
       - name: Get JaCoCo Coverage
