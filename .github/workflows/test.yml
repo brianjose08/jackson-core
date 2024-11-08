@@ -7,11 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        jvm_flag:
-          - "-XX:+UseG1GC"
-          
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Set up JDK 17
@@ -21,10 +16,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Maven tests avec le flag ${{ matrix.jvm_flag }}
-      env:
-        MAVEN_OPTS: ${{ matrix.jvm_flag }}
-      run: mvn verify
+      - name: Run Maven tests
+        run: mvn verify
 
       - name: Get JaCoCo Coverage
         id: coverage  
