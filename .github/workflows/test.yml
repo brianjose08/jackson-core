@@ -19,6 +19,8 @@ jobs:
       - name: Run Maven tests
         run: mvn verify
 
+          #test
+
       - name: Get JaCoCo Coverage
         id: coverage  
         run: |
