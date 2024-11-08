@@ -16,10 +16,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run Maven tests
-        run: mvn verify
+      - name: Run Maven tests with -XX:+UseG1GC
+        env:
+          MAVEN_OPTS: "-XX:+UseG1GC"
+          run: |
+          echo "Build de JVM flag: -XX:+UseG1GC"
+          mvn verify
 
-          #test
 
       - name: Get JaCoCo Coverage
         id: coverage  
