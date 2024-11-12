@@ -24,4 +24,11 @@ Ce flag active le garbage collector ZGC, qui minimise les pauses de collecte de 
 ### -XX:+UseCompressedOops
 Ce flag active les pointeurs d'objets compressés, ce qui entraîne une réduction de l'utilisation de la mémoire. Il améliore donc les performances pour les applications qui ont un haut niveau de consommation de mémoire et il évite également les erreurs de mémoire insuffisante.
 
+### -XX:+HeapDumpOnOutOfMemoryError 
+
+Ce flag est très utile pour le débogage, car il génère un fichier de dump mémoire chaque fois qu'une erreur OutOfMemoryError survient. Cela permet aux développeurs d'analyser l'état de la mémoire au moment de l'erreur, ce qui est précieux pour identifier et résoudre des problèmes comme les fuites de mémoire. Il n'affecte pas les performances au quotidien, mais en cas d'erreur, il ralentit légèrement le système pendant la création du fichier de dump.
+
+### -XX:MaxNewSize
+
+Ce flag fixe la taille maximale de la "Young Generation", la zone de mémoire où sont créés les nouveaux objets. En ajustant cette taille, on peut améliorer les performances en réduisant la fréquence des collectes de mémoire mineures (Minor GC), surtout dans les applications qui créent beaucoup d'objets temporaires. Cela aide à rendre l'application plus stable et à mieux comprendre l'impact de la gestion des objets récents sur l'utilisation de la mémoire.
 
