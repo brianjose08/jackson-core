@@ -15,19 +15,18 @@ Nous avons rencontré un problème lorsque nous essayons de exécuter un build a
 
 ## Choix et justification des cinq flags
 
-### -XX:+UseG1GC
+### -XX:+UseG1GC (Garbage Collector)
 Ce flag active le garbage collector G1, qui est fait pour réduire les pauses de nettoyage de mémoire dans les grandes applications. Cela rend donc les applications plus rapide et plus fluide, parce que la gestion de la mémoire est plus efficace. En testant avec ce flag, on peut donc voir si l'optimisation de la mémoire améliore effectivement la stabilité et la vitesse de l'application lors des tests.
 
-### 
-
-
-### -XX:+UseCompressedOops
+### -XX:+UseCompressedOops (Memory Management)
 Ce flag active les pointeurs d'objets compressés, ce qui entraîne une réduction de l'utilisation de la mémoire. Il améliore donc les performances pour les applications qui ont un haut niveau de consommation de mémoire et il évite également les erreurs de mémoire insuffisante.
 
-### -XX:+HeapDumpOnOutOfMemoryError 
+### -XX:+HeapDumpOnOutOfMemoryError (Debugging)
 Ce flag va créer un fichier de dump mémoire quand une erreur de mémoire (typiquement OutOfMemoryError) déclenche. Le fichier qui est créer aide à comprende ce qui à causé l'erreur. Simplement dit, c'est utile pour le débogage.
 
 
-### -XX:MaxNewSize
+### -XX:MaxNewSize (Heap)
 Ce flag fixe la taille maximale de la zone mémoire où les nouveaux objets sont créés. En ajustant cette taille, cela peut entraîner une amélioration des performances en réduisant la fréquence des nettoyages de mémoire fréquents et rendre l'application plus stable. C'est donc utile pour les applications qui créent beaucoup d'objets temporaires.
+
+### -XX:+PrintGCDetails (Logging)
 
