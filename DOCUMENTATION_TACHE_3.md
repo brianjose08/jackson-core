@@ -10,3 +10,5 @@ Puisque dans cette tâche on cherche à exécuter un job plusieurs fois avec un 
 
 Voici une documentation fournit par Github Docs par rapport aux "matrix strategies" (documentation de Github Docs) : [Running variations of jobs in a workflow](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow)
 
+### Changements dans le fichier pom.xml
+Nous avons rencontré un problème lorsque nous essayons de exécuter un build avec succès. Le problème était dû au fait que dans le projet parent de jackson-core, le fichier `pom.xml` à été modifié de façon qu'une version différent de `snapshot` est utilisé dans le projet parent. En conséquence, cela à mener au fait que nos build ne passent pas avec succès puisque nous n'avions pas la bonne version. Il suffisait uniquement dans ce cas là de changer la version du snapshot dans notre fichier `pom.xml`.
