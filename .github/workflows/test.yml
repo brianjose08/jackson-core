@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jvm_flags: ["-XX:+UseG1GC", "-XX:+UseZGC", "-XX:+UseCompressedOops"]
+        jvm_flags: ["-XX:+UseG1GC", "-XX:+UseZGC", "-XX:+UseCompressedOops", "-XX:MaxNewSize", "-XX:+HeapDumpOnOutOfMemoryError"]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Set up JDK 17
