@@ -29,4 +29,4 @@ Ce flag va créer un fichier de dump mémoire quand une erreur de mémoire (typi
 Ce flag fixe la taille maximale de la zone mémoire où les nouveaux objets sont créés. En ajustant cette taille, cela peut entraîner une amélioration des performances en réduisant la fréquence des nettoyages de mémoire fréquents et rendre l'application plus stable. C'est donc utile pour les applications qui créent beaucoup d'objets temporaires.
 
 ### -XX:+PrintGCDetails (Logging)
-
+Ce flag donne des détails sur le garbage collector. Elle montre par exemple les différents types de collecte, la mémoire libérée et les temps de pause. C'est donc particulièrement utile pour observer et comprendre la gestion de la mémoire. En faisant cela, il est possible ensuite de identifier et résoudre des problèmes potentiels qui pourraient avoir un effet sur la performance.
